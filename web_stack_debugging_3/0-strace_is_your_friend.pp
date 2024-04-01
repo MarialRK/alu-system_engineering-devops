@@ -1,4 +1,6 @@
-exec {'/etc/php5/apache2/php.ini':
-path     => ['/usr/bin', '/sbin', '/bin', '/usr/sbin'],
-command  => "sed -i '/display_errors = Off/c\display_errors = On' /etc/php5/apache2/php.ini",
-provider => 'shell',}
+# Fixes bad `phpp` extensions to `php` in the WordPress file `wp-settings.php`.
+
+exec { 'fix-wordpress':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => '/usr/local/bin/:/bin/'
+}
